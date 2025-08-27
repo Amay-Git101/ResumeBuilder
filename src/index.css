@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Resume Builder Design System - Professional & Modern */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 0 0% 9%; /* Near black */
+
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 0 0% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+
+    /* Professional neutral theme */
+    --primary: 220 13% 18%; /* Dark slate */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 220 13% 28%; /* Lighter slate for gradients */
+
+    --secondary: 0 0% 96%; /* Light gray */
+    --secondary-foreground: 0 0% 45%; /* Medium gray */
+
+    --muted: 0 0% 98%; /* Very light gray */
+    --muted-foreground: 0 0% 45%; /* Medium gray */
+
+    --accent: 220 13% 18%; /* Dark slate for accents */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%; /* Red */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%; /* Light gray border */
+    --input: 0 0% 90%;
+    --ring: 220 13% 18%;
+
+    /* Success color for completed sections */
+    --success: 142 71% 45%; /* Green */
+    --success-foreground: 0 0% 100%;
+
+    /* Warning color */
+    --warning: 38 92% 50%; /* Orange */
+    --warning-foreground: 0 0% 100%;
+
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+
+    /* Shadows */
+    --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 15 23 42; /* Slate-900 */
+    --foreground: 248 250 252; /* Slate-50 */
+
+    --card: 30 41 59; /* Slate-800 */
+    --card-foreground: 248 250 252;
+
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+
+    --primary: 56 189 248; /* Sky-400 */
+    --primary-foreground: 15 23 42;
+    --primary-glow: 125 211 252; /* Sky-300 */
+
+    --secondary: 51 65 85; /* Slate-700 */
+    --secondary-foreground: 226 232 240;
+
+    --muted: 71 85 105; /* Slate-600 */
+    --muted-foreground: 148 163 184; /* Slate-400 */
+
+    --accent: 56 189 248;
+    --accent-foreground: 15 23 42;
+
+    --destructive: 248 113 113; /* Red-400 */
+    --destructive-foreground: 15 23 42;
+
+    --border: 71 85 105;
+    --input: 71 85 105;
+    --ring: 56 189 248;
+
+    --success: 74 222 128; /* Green-400 */
+    --success-foreground: 15 23 42;
+
+    --warning: 251 191 36; /* Amber-400 */
+    --warning-foreground: 15 23 42;
+
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+
+    /* Dark shadows */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
