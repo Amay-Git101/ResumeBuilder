@@ -4,14 +4,27 @@ import { useNavigate } from "react-router-dom";
 import { useResumeData } from "@/hooks/useResumeData";
 import { ArrowLeft, Download, Edit, FileText } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { pdf } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver';
 
-// Import the new template components
-import { MinimalistTemplate } from "@/components/templates/MinimalistTemplate";
-import { CreativeTemplate } from "@/components/templates/CreativeTemplate";
+// Import all templates
+import { 
+  MinimalistTemplate, 
+  CreativeTemplate,
+  MinimalistTemplatePDF,
+  CreativeTemplatePDF
+} from "@/components/templates";
 
+// Map for on-screen display
 const templateMap: { [key: string]: React.FC<{ data: any }> } = {
   minimalist: MinimalistTemplate,
   creative: CreativeTemplate,
+};
+
+// Map for PDF generation
+const templateMapPDF: { [key: string]: React.FC<{ data: any }> } = {
+  minimalist: MinimalistTemplatePDF,
+  creative: CreativeTemplatePDF,
 };
 
 const PreviewPage = () => {
@@ -19,18 +32,33 @@ const PreviewPage = () => {
   const { resumeData } = useResumeData();
   const [isGenerating, setIsGenerating] = useState(false);
 
+  // Component for on-screen preview
+  const SelectedTemplate = templateMap[resumeData.selectedTemplate] || MinimalistTemplate;
+  
+  // Component for PDF generation
+  const SelectedTemplatePDF = templateMapPDF[resumeData.selectedTemplate] || MinimalistTemplatePDF;
+
   const handleDownloadPDF = async () => {
     setIsGenerating(true);
-    toast({
-      title: "PDF Generation",
-      description: "This feature is coming soon! For now, you can use your browser's print function (Ctrl/Cmd + P) to save as PDF.",
-    });
-    // In a real implementation, you would use a library like @react-pdf/renderer
-    // to generate the PDF from the selected template component.
-    setTimeout(() => setIsGenerating(false), 2000);
+    try {
+      const blob = await pdf(<SelectedTemplatePDF data={resumeData} />).toBlob();
+      saveAs(blob, `${resumeData.personalInfo.fullName || 'resume'}.pdf`);
+      
+      toast({
+        title: "PDF Generated!",
+        description: "Your resume has been downloaded successfully.",
+      });
+    } catch (error) {
+      console.error("PDF Generation Error: ", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate PDF. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGenerating(false);
+    }
   };
-
-  const SelectedTemplate = templateMap[resumeData.selectedTemplate] || MinimalistTemplate; // Fallback to Minimalist
 
   return (
     <div className="min-h-screen bg-muted/40">

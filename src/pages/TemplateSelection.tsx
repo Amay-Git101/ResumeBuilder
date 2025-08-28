@@ -81,7 +81,7 @@ const TemplateSelection = () => {
           </div>
 
           {/* Template Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {templates.map((template) => {
               const TemplateComponent = template.component;
               const isSelected = selectedTemplate === template.id;
@@ -103,9 +103,9 @@ const TemplateSelection = () => {
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent className="p-4 flex flex-col flex-grow">
+                    <CardContent className="p-6 flex flex-col flex-grow">
                       <CardTitle className="text-lg mb-2">{template.name}</CardTitle>
-                      <p className="text-muted-foreground text-sm mb-4 flex-grow min-h-[4.5rem]">
+                      <p className="text-muted-foreground text-sm mb-4 flex-grow">
                         {template.description}
                       </p>
                       <div className="flex flex-wrap gap-2">

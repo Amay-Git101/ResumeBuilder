@@ -1,7 +1,7 @@
 // src/components/TemplatePreviews.tsx
 
 export const MinimalistPreview = () => (
-  <div className="w-full h-full bg-white p-4 font-sans text-[5px] leading-snug text-gray-700 flex flex-col scale-[0.8] origin-top">
+  <div className="w-full h-full bg-white p-4 font-sans text-[5px] leading-snug text-gray-700 flex flex-col">
     {/* Header */}
     <div className="text-center mb-3">
       <div className="w-28 h-2.5 bg-gray-800 mx-auto rounded-sm"></div>
@@ -51,7 +51,7 @@ export const MinimalistPreview = () => (
 );
 
 export const CreativePreview = () => (
-  <div className="w-full h-full bg-white font-sans text-[5px] leading-snug flex scale-[0.8] origin-top">
+  <div className="w-full h-full bg-white font-sans text-[5px] leading-snug flex">
     {/* Left Column */}
     <div className="w-1/3 bg-yellow-400 p-3 space-y-3">
       <div className="w-10 h-10 bg-gray-800 rounded-full"></div>
