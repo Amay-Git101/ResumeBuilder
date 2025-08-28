@@ -20,7 +20,6 @@ export const CreativeTemplate: React.FC<Props> = ({ data }) => {
       {/* Sidebar */}
       <aside className="w-1/3 bg-yellow-400 p-8 text-gray-900 flex flex-col">
         <div className="text-center mb-8">
-            <div className="w-24 h-24 bg-gray-800 rounded-full mx-auto mb-4"></div>
             <h1 className="text-3xl font-bold">{personalInfo.fullName}</h1>
             <p className="text-md">HR Intern</p>
         </div>

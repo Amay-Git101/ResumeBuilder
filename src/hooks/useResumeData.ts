@@ -1,97 +1,119 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ResumeData } from '@/types/resume';
 
 const STORAGE_KEY = 'resume-builder-data';
 
-const defaultResumeData: ResumeData = {
+export const sampleResumeData: ResumeData = {
   personalInfo: {
-    fullName: 'Ashley Taylor',
-    email: 'ashley.taylor@email.com',
+    fullName: 'Mark Griffin',
+    email: 'markgriff91@email.com',
     phone: '(123) 456-7890',
-    location: 'San Diego, CA',
-    linkedin: 'linkedin.com/in/ashleytaylor',
-    github: 'github.com/ashleytaylor',
-    website: 'ashleytaylor.dev',
+    location: 'Chicago, IL',
+    linkedin: 'linkedin.com/in/markgriffin',
+    github: 'github.com/markgriffin',
+    website: 'markgriffin.dev',
   },
   education: [
     {
       id: 'edu1',
-      degree: 'M.S. in Computer Science',
-      institution: 'San Diego State University',
-      startDate: 'Feb 2016',
-      endDate: 'June 2018',
-      description: '',
-      gpa: '3.8',
-    },
-    {
-      id: 'edu2',
-      degree: 'B.S. in Computer Science',
-      institution: 'National University',
-      startDate: 'Aug 2011',
-      endDate: 'May 2015',
-      description: '',
-      gpa: '3.5',
+      degree: 'Bachelor of Business Administration',
+      institution: 'University of Illinois Chicago',
+      startDate: 'Sep 2021',
+      endDate: 'Present',
+      description: 'Relevant Coursework: Human Resource Management, Organizational Behavior, Business Ethics, Labor Law, Compensation and Benefits.',
+      gpa: '3.7/4.0',
     }
   ],
   workExperience: [
     {
       id: 'work1',
-      company: 'Illumina',
-      location: 'San Diego, CA',
-      position: 'Data Scientist',
-      startDate: 'Mar 2021',
+      company: 'Jugrnaut',
+      location: 'Chicago, IL',
+      position: 'Cashier',
+      startDate: 'May 2023',
       endDate: 'Present',
       current: true,
-      description: '• Pioneered the use of advanced segmentation in Google Analytics 4.\n• Conducted data analyses, uncovering business insights.\n• Introduced data-driven attribution to identify the most effective marketing campaigns.',
+      description: '• Processed an average of 32 customer transactions per day with 98% accuracy.\n• Upsold personalized accessories, resulting in a 4.1% increase in average cart value.\n• Fostered an inclusive work environment by engaging in 9+ team morale-building activities.\n• Handled all in-store return requests, resolving 86% of all returns within one day.',
+    },
+    {
+        id: 'work3',
+        company: 'University of Illinois',
+        location: 'Chicago, IL',
+        position: 'HR Research Assistant',
+        startDate: 'Dec 2022',
+        endDate: 'May 2023',
+        current: false,
+        description: '• Led a team of 6 students in a detailed study on HR practices, understanding key employee satisfaction drivers.\n• Used MS Office to create visual reports of the group\'s findings, presenting information to a classroom of 27 undergraduates.\n• Analyzed survey results to identify the latest trends in employee satisfaction.'
     },
     {
       id: 'work2',
-      company: 'ServiceNow',
-      location: 'San Diego, CA',
-      position: 'Data Analyst',
-      startDate: 'Jul 2019',
-      endDate: 'Feb 2021',
+      company: 'Campus Entrepreneurship Fair',
+      location: 'Hyde Park, Chicago',
+      position: 'Organizer',
+      startDate: 'Aug 2022',
+      endDate: 'Sep 2022',
       current: false,
-      description: '• Integrated data from 6 sources within ServiceNow.\n• Used Google Analytics to track website traffic patterns for 3 clients.\n• Revamped existing data cleaning processes to support a machine learning project.',
+      description: '• Organized a campus-wide fair, facilitating 42 student business presentations to 19 investors.\n• Designed an efficient workflow for the marketing team, attracting 21% more visitors than previous years.\n• Delegated and tracked 17 volunteer tasks using Asana, ensuring all tasks were completed on time.',
     }
   ],
   projects: [
-    {
-      id: 'proj1',
-      title: 'Customer Segmentation Analysis',
-      description: 'Developed a machine learning model to segment customers based on purchasing behavior, leading to a 15% increase in targeted marketing campaign effectiveness.',
-      techStack: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib'],
-      link: 'project-demo.com',
-      github: 'github.com/ashley/segmentation',
-    }
+      {
+          id: 'proj1',
+          title: 'HR Policy Handbook Analysis',
+          description: 'Conducted a comprehensive review and update of a mock company\'s HR policy handbook. Identified 15 outdated policies and proposed revisions to align with current labor laws and best practices for diversity, equity, and inclusion (DEI).',
+          techStack: ['Microsoft Word', 'Excel', 'LexisNexis'],
+      }
   ],
   skills: [
-    { id: 'skill1', name: 'Google Analytics 4', category: 'technical', level: 'expert' },
-    { id: 'skill2', name: 'SQL', category: 'technical', level: 'advanced' },
-    { id: 'skill3', name: 'Power BI', category: 'technical', level: 'advanced' },
-    { id: 'skill4', name: 'Data Cleaning', category: 'technical', level: 'expert' },
-    { id: 'skill5', name: 'Team Leadership', category: 'soft', level: 'advanced' },
+    { id: 'skill1', name: 'Performance Management', category: 'technical', level: 'advanced' },
+    { id: 'skill2', name: 'MS Office Suite', category: 'technical', level: 'expert' },
+    { id: 'skill3', name: 'Asana', category: 'technical', level: 'intermediate' },
+    { id: 'skill9', name: 'BambooHR', category: 'technical', level: 'beginner' },
+    { id: 'skill4', name: 'Discretion and Ethical Judgment', category: 'soft', level: 'expert' },
+    { id: 'skill5', name: 'Leadership', category: 'soft', level: 'advanced' },
+    { id: 'skill7', name: 'Conflict Resolution', category: 'soft', level: 'advanced' },
+    { id: 'skill8', name: 'Communication', category: 'soft', level: 'expert' },
     { id: 'skill6', name: 'English', category: 'language', level: 'expert' },
   ],
   achievements: [
     {
       id: 'ach1',
-      title: 'Google Analytics Individual Qualification (GAIQ)',
-      date: '2019',
-      issuer: 'Google',
+      title: 'SHRM Certified Professional (SHRM-CP)',
+      date: '2023',
+      issuer: 'SHRM',
+      description: 'Credential recognizing expertise in HR policies and practices.'
     },
     {
-      id: 'ach2',
-      title: 'First Prize in Google Analytics Hackathon',
-      date: '2014',
-      issuer: 'National University',
+        id: 'ach2',
+        title: 'Dean\'s List',
+        date: '2022-2023',
+        issuer: 'University of Illinois Chicago',
+        description: 'Awarded for achieving a GPA of 3.5 or higher for the academic year.'
     }
   ],
-  selectedTemplate: '',
+  selectedTemplate: 'traditional',
 };
 
+const emptyResumeData: ResumeData = {
+    personalInfo: {
+      fullName: '',
+      email: '',
+      phone: '',
+      location: '',
+      linkedin: '',
+      github: '',
+      website: '',
+    },
+    education: [],
+    workExperience: [],
+    projects: [],
+    skills: [],
+    achievements: [],
+    selectedTemplate: '',
+  };
+
 export function useResumeData() {
-  const [resumeData, setResumeData] = useState<ResumeData>(defaultResumeData);
+  const [resumeData, setResumeData] = useState<ResumeData>(emptyResumeData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -102,11 +124,11 @@ export function useResumeData() {
           const parsedData = JSON.parse(stored);
           setResumeData(parsedData);
         } else {
-          setResumeData(defaultResumeData);
+          setResumeData(emptyResumeData);
         }
       } catch (error) {
         console.error('Error loading resume data:', error);
-        setResumeData(defaultResumeData);
+        setResumeData(emptyResumeData);
       } finally {
         setIsLoading(false);
       }
@@ -161,14 +183,17 @@ export function useResumeData() {
 
   const clearData = () => {
     localStorage.removeItem(STORAGE_KEY);
-    setResumeData(defaultResumeData);
+    setResumeData(emptyResumeData);
+  };
+  
+  const fillSampleData = () => {
+    saveData(sampleResumeData);
   };
 
   const getCompletionPercentage = () => {
     let completed = 0;
     let total = 0;
 
-    // Personal info (required fields)
     const requiredPersonalFields = ['fullName', 'email', 'phone'];
     requiredPersonalFields.forEach(field => {
       total++;
@@ -177,17 +202,16 @@ export function useResumeData() {
       }
     });
 
-    // Template selection
     total++;
     if (resumeData.selectedTemplate) completed++;
 
-    // Sections with data
     total += 4; // education, work, projects, skills
     if (resumeData.education.length > 0) completed++;
     if (resumeData.workExperience.length > 0) completed++;
     if (resumeData.projects.length > 0) completed++;
     if (resumeData.skills.length > 0) completed++;
-
+    
+    if (total === 0) return 0;
     return Math.round((completed / total) * 100);
   };
 
@@ -202,6 +226,7 @@ export function useResumeData() {
     updateAchievements,
     updateSelectedTemplate,
     clearData,
+    fillSampleData,
     getCompletionPercentage,
   };
 }

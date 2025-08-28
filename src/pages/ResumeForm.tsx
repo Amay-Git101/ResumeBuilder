@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useNavigate } from "react-router-dom";
 import { useResumeData } from "@/hooks/useResumeData";
@@ -18,12 +14,12 @@ import {
   Code,
   Award,
   Target,
-  Plus,
-  Trash2,
   Eye,
   Save,
   RefreshCw,
-  FileText
+  FileText,
+  Trash2,
+  Sparkles
 } from "lucide-react";
 import { PersonalInfoForm } from "@/components/forms/PersonalInfoForm";
 import { EducationForm } from "@/components/forms/EducationForm";
@@ -32,6 +28,7 @@ import { ProjectsForm } from "@/components/forms/ProjectsForm";
 import { SkillsForm } from "@/components/forms/SkillsForm";
 import { AchievementsForm } from "@/components/forms/AchievementsForm";
 import { toast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 const sections = [
   {
@@ -80,7 +77,7 @@ const sections = [
 
 const ResumeForm = () => {
   const navigate = useNavigate();
-  const { resumeData, clearData, getCompletionPercentage } = useResumeData();
+  const { clearData, fillSampleData, getCompletionPercentage } = useResumeData();
   const [openSections, setOpenSections] = useState<string[]>(['personal']);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -94,7 +91,6 @@ const ResumeForm = () => {
 
   const handleSaveProgress = async () => {
     setIsSaving(true);
-    // Simulate save delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSaving(false);
     toast({
@@ -113,6 +109,14 @@ const ResumeForm = () => {
       });
     }
   };
+  
+  const handleFillSample = () => {
+    fillSampleData();
+    toast({
+      title: "Sample Data Loaded",
+      description: "The form has been filled with sample data.",
+    });
+  }
 
   const completionPercentage = getCompletionPercentage();
 
@@ -181,6 +185,13 @@ const ResumeForm = () => {
             <p className="text-muted-foreground">
               Fill in your information below. All sections are saved automatically as you type.
             </p>
+          </div>
+          
+          <div className="flex justify-end mb-4">
+            <Button variant="outline" size="sm" onClick={handleFillSample} className="gap-2">
+              <Sparkles className="h-4 w-4" />
+              Fill with Sample Data
+            </Button>
           </div>
 
           {/* Progress Bar */}

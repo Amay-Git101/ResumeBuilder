@@ -7,14 +7,10 @@ import { toast } from "@/hooks/use-toast";
 
 // Import the new template components
 import { MinimalistTemplate } from "@/components/templates/MinimalistTemplate";
-import { ModernTemplate } from "@/components/templates/ModernTemplate";
-import { TraditionalTemplate } from "@/components/templates/TraditionalTemplate";
 import { CreativeTemplate } from "@/components/templates/CreativeTemplate";
 
 const templateMap: { [key: string]: React.FC<{ data: any }> } = {
   minimalist: MinimalistTemplate,
-  modern: ModernTemplate,
-  traditional: TraditionalTemplate,
   creative: CreativeTemplate,
 };
 

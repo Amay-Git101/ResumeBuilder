@@ -6,15 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useResumeData } from "@/hooks/useResumeData";
 import { ArrowLeft, Check, FileText } from "lucide-react";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
   MinimalistPreview,
-  ModernPreview,
-  TraditionalPreview,
   CreativePreview
 } from "@/components/TemplatePreviews";
 
@@ -25,20 +17,6 @@ const templates = [
     description: "Clean and simple design perfect for any industry.",
     component: MinimalistPreview,
     tags: ["Clean typography", "Plenty of white space", "ATS-friendly"]
-  },
-  {
-    id: "modern",
-    name: "Modern",
-    description: "Contemporary design with subtle colors and modern styling.",
-    component: ModernPreview,
-    tags: ["Modern styling", "Color accents", "Professional layout"]
-  },
-  {
-    id: "traditional",
-    name: "Traditional",
-    description: "Classic professional format trusted by recruiters.",
-    component: TraditionalPreview,
-    tags: ["Time-tested format", "Conservative design", "Widely accepted"]
   },
   {
     id: "creative",
@@ -53,7 +31,6 @@ const TemplateSelection = () => {
   const navigate = useNavigate();
   const { resumeData, updateSelectedTemplate } = useResumeData();
   const [selectedTemplate, setSelectedTemplate] = useState(resumeData.selectedTemplate);
-  const [previewingTemplate, setPreviewingTemplate] = useState<(typeof templates)[0] | null>(null);
 
   const handleTemplateSelect = (templateId: string) => {
     setSelectedTemplate(templateId);
@@ -65,8 +42,6 @@ const TemplateSelection = () => {
       navigate('/resume-form');
     }
   };
-
-  const TemplateComponentToPreview = previewingTemplate?.component;
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -96,7 +71,7 @@ const TemplateSelection = () => {
 
       {/* Main Content */}
       <main className="px-6 py-8">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Choose Your Resume Template</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -106,7 +81,7 @@ const TemplateSelection = () => {
           </div>
 
           {/* Template Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {templates.map((template) => {
               const TemplateComponent = template.component;
               const isSelected = selectedTemplate === template.id;
@@ -138,16 +113,6 @@ const TemplateSelection = () => {
                           <Badge key={tag} variant="secondary">{tag}</Badge>
                         ))}
                       </div>
-                      <Button
-                        variant="outline"
-                        className="w-full mt-4"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setPreviewingTemplate(template);
-                        }}
-                      >
-                        Preview
-                      </Button>
                     </CardContent>
                   </Card>
                 </div>
@@ -174,19 +139,6 @@ const TemplateSelection = () => {
           </div>
         </div>
       </main>
-
-      <Dialog open={!!previewingTemplate} onOpenChange={(isOpen) => !isOpen && setPreviewingTemplate(null)}>
-        <DialogContent className="max-w-3xl h-[90vh] p-0 flex flex-col">
-          <DialogHeader className="p-6 pb-0">
-            <DialogTitle>{previewingTemplate?.name} Template Preview</DialogTitle>
-          </DialogHeader>
-          <div className="p-6 pt-2 h-full overflow-hidden">
-            <div className="h-full w-full overflow-auto border rounded-md bg-white">
-              {TemplateComponentToPreview && <TemplateComponentToPreview />}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
