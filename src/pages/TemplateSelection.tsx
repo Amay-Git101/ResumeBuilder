@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useResumeData } from "@/hooks/useResumeData";
 import { ArrowLeft, Check, FileText } from "lucide-react";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   MinimalistPreview,
   ModernPreview,
   TraditionalPreview,
@@ -47,6 +53,7 @@ const TemplateSelection = () => {
   const navigate = useNavigate();
   const { resumeData, updateSelectedTemplate } = useResumeData();
   const [selectedTemplate, setSelectedTemplate] = useState(resumeData.selectedTemplate);
+  const [previewingTemplate, setPreviewingTemplate] = useState<(typeof templates)[0] | null>(null);
 
   const handleTemplateSelect = (templateId: string) => {
     setSelectedTemplate(templateId);
@@ -58,6 +65,8 @@ const TemplateSelection = () => {
       navigate('/resume-form');
     }
   };
+
+  const TemplateComponentToPreview = previewingTemplate?.component;
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -102,12 +111,11 @@ const TemplateSelection = () => {
               const TemplateComponent = template.component;
               const isSelected = selectedTemplate === template.id;
               return (
-                <div
-                  key={template.id}
-                  className="cursor-pointer group"
-                  onClick={() => handleTemplateSelect(template.id)}
-                >
-                  <Card className={`overflow-hidden transition-all duration-300 ${isSelected ? 'ring-2 ring-primary' : 'hover:shadow-large'}`}>
+                <div key={template.id}>
+                  <Card
+                    onClick={() => handleTemplateSelect(template.id)}
+                    className={`cursor-pointer group overflow-hidden transition-all duration-300 flex flex-col h-full ${isSelected ? 'ring-2 ring-primary' : 'hover:shadow-large'}`}
+                  >
                     <CardHeader className="p-0">
                       <div className="aspect-[3/4] bg-gray-100 flex items-center justify-center relative overflow-hidden border-b group-hover:opacity-90 transition-opacity">
                         <TemplateComponent />
@@ -120,9 +128,9 @@ const TemplateSelection = () => {
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent className="p-4">
+                    <CardContent className="p-4 flex flex-col flex-grow">
                       <CardTitle className="text-lg mb-2">{template.name}</CardTitle>
-                      <p className="text-muted-foreground text-sm mb-4 h-12">
+                      <p className="text-muted-foreground text-sm mb-4 flex-grow min-h-[4.5rem]">
                         {template.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -130,6 +138,16 @@ const TemplateSelection = () => {
                           <Badge key={tag} variant="secondary">{tag}</Badge>
                         ))}
                       </div>
+                      <Button
+                        variant="outline"
+                        className="w-full mt-4"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPreviewingTemplate(template);
+                        }}
+                      >
+                        Preview
+                      </Button>
                     </CardContent>
                   </Card>
                 </div>
@@ -156,6 +174,19 @@ const TemplateSelection = () => {
           </div>
         </div>
       </main>
+
+      <Dialog open={!!previewingTemplate} onOpenChange={(isOpen) => !isOpen && setPreviewingTemplate(null)}>
+        <DialogContent className="max-w-3xl h-[90vh] p-0 flex flex-col">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle>{previewingTemplate?.name} Template Preview</DialogTitle>
+          </DialogHeader>
+          <div className="p-6 pt-2 h-full overflow-hidden">
+            <div className="h-full w-full overflow-auto border rounded-md bg-white">
+              {TemplateComponentToPreview && <TemplateComponentToPreview />}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

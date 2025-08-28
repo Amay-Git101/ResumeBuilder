@@ -18,6 +18,7 @@ export const WorkExperienceForm = () => {
       id: Date.now().toString(),
       company: '',
       position: '',
+      location: '',
       startDate: '',
       endDate: '',
       current: false,
@@ -88,16 +89,26 @@ export const WorkExperienceForm = () => {
                     onChange={(e) => updateWorkExperienceItem(exp.id, 'company', e.target.value)}
                   />
                 </div>
-
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Position</Label>
+                  <Label className="text-sm font-medium">Location</Label>
                   <Input
-                    placeholder="Software Engineer"
-                    value={exp.position}
-                    onChange={(e) => updateWorkExperienceItem(exp.id, 'position', e.target.value)}
+                    placeholder="San Francisco, CA"
+                    value={exp.location}
+                    onChange={(e) => updateWorkExperienceItem(exp.id, 'location', e.target.value)}
                   />
                 </div>
+              </div>
 
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Position</Label>
+                <Input
+                  placeholder="Software Engineer"
+                  value={exp.position}
+                  onChange={(e) => updateWorkExperienceItem(exp.id, 'position', e.target.value)}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Start Date</Label>
                   <Input
@@ -123,8 +134,10 @@ export const WorkExperienceForm = () => {
                   id={`current-${exp.id}`}
                   checked={exp.current}
                   onCheckedChange={(checked) => {
-                    updateWorkExperienceItem(exp.id, 'current', checked);
+                    updateWorkExperienceItem(exp.id, 'current', checked as boolean);
                     if (checked) {
+                      updateWorkExperienceItem(exp.id, 'endDate', 'Present');
+                    } else {
                       updateWorkExperienceItem(exp.id, 'endDate', '');
                     }
                   }}
