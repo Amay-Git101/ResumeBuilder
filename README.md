@@ -2,7 +2,7 @@
 
 A modern, web-based resume builder that helps you create professional resumes with ease. Built with **React, Vite, TypeScript, and Tailwind CSS**.
 
-🔗 **Live Demo**: [Coming Soon](#)
+🔗 **Live Demo**: [https://robust-resume-builder.vercel.app/](#)
 
 ---
 
@@ -28,10 +28,9 @@ A modern, web-based resume builder that helps you create professional resumes wi
 
 ## 📸 Screenshots
 
-👉 Add screenshots of your app in the `screenshots/` folder and link them here.  
-
 ### Landing Page  
-![Landing Page](screenshots/landing.png)
+![Landing Page 1](screenshots/landing_1.png)  
+![Landing Page 2](screenshots/landing_2.png)
 
 ### Template Selection  
 ![Template Selection](screenshots/templates.png)
@@ -42,11 +41,11 @@ A modern, web-based resume builder that helps you create professional resumes wi
 ### Final Resume Preview  
 ![Final Resume Preview](screenshots/preview.png)
 
+
 ---
 
 ## ⚙️ Workflow Overview
-
-```mermaid
+```
 graph TD
     A[User Input] --> B[Form Components]
     B --> C[Resume Data State]
@@ -106,3 +105,4 @@ amay-git101-resumebuilder/
     │   └── TemplateSelection.tsx
     └── types/
         └── resume.ts
+```
