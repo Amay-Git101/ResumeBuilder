@@ -2,7 +2,7 @@
 
 A modern, web-based resume builder that helps you create professional resumes with ease. Built with **React, Vite, TypeScript, and Tailwind CSS**.
 
-🔗 **Live Demo**: [https://robust-resume-builder.vercel.app/](#)
+🔗 **Live Demo**: [https://robust-resume-builder.vercel.app](https://robust-resume-builder.vercel.app)
 
 ---
 
@@ -26,20 +26,21 @@ A modern, web-based resume builder that helps you create professional resumes wi
 
 ---
 
+
 ## 📸 Screenshots
 
 ### Landing Page  
-![Landing Page 1](screenshots/landing_1.png)  
-![Landing Page 2](screenshots/landing_2.png)
+![Landing Page 1](Screenshots/landing_1.png)  
+![Landing Page 2](Screenshots/landing_2.png)
 
 ### Template Selection  
-![Template Selection](screenshots/templates.png)
+![Template Selection](Screenshots/templates.png)
 
 ### Resume Form  
-![Resume Form](screenshots/form.png)
+![Resume Form](Screenshots/form.png)
 
 ### Final Resume Preview  
-![Final Resume Preview](screenshots/preview.png)
+![Final Resume Preview](Screenshots/preview.png)
 
 
 ---
