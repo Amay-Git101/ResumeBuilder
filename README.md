@@ -45,7 +45,7 @@ A modern, web-based resume builder that helps you create professional resumes wi
 ---
 
 ## ⚙️ Workflow Overview
-
+```
 graph TD
     A[User Input] --> B[Form Components]
     B --> C[Resume Data State]
@@ -105,3 +105,4 @@ amay-git101-resumebuilder/
     │   └── TemplateSelection.tsx
     └── types/
         └── resume.ts
+```
