@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { FileText, Download, Edit, Zap } from "lucide-react";
+import { CreativePreview } from "@/components/TemplatePreviews";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -50,9 +51,19 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <section className="px-6 py-12 md:py-20 text-center md:text-left relative overflow-hidden bg-gradient-subtle">
-        <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 font-serif">
+        <div className="absolute inset-0 z-0 opacity-30">
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0a0d0eff" strokeWidth="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+        <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div>
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 font-serif leading-tight">
               Build Your <span className="text-primary">Professional</span> Resume
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-lg mx-auto md:mx-0">
@@ -77,9 +88,9 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex justify-center mt-8 md:mt-0">
-            <Card className="p-4 shadow-large w-full max-w-xs md:max-w-sm rotate-3 transform transition-transform duration-300 hover:rotate-0">
-              <div className="aspect-[3/4] bg-white rounded-md flex items-center justify-center border border-dashed border-gray-300">
-                <p className="text-muted-foreground text-lg font-semibold">Resume Preview</p>
+            <Card className="p-4 shadow-large w-full max-w-xs md:max-w-sm rotate-3 transform transition-transform duration-300 hover:rotate-0 hover:scale-105">
+              <div className="aspect-[3/4] bg-white rounded-md flex items-center justify-center border overflow-hidden">
+                <CreativePreview />
               </div>
             </Card>
           </div>

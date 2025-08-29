@@ -81,7 +81,7 @@ const TemplateSelection = () => {
           </div>
 
           {/* Template Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {templates.map((template) => {
               const TemplateComponent = template.component;
               const isSelected = selectedTemplate === template.id;
@@ -89,10 +89,10 @@ const TemplateSelection = () => {
                 <div key={template.id}>
                   <Card
                     onClick={() => handleTemplateSelect(template.id)}
-                    className={`cursor-pointer group overflow-hidden transition-all duration-300 flex flex-col h-full ${isSelected ? 'ring-2 ring-primary' : 'hover:shadow-large'}`}
+                    className={`cursor-pointer group overflow-hidden transition-all duration-300 flex flex-col h-full ${isSelected ? 'ring-2 ring-primary' : 'hover:shadow-large hover:-translate-y-1'}`}
                   >
-                    <CardHeader className="p-0">
-                      <div className="aspect-[3/4] bg-gray-100 flex items-center justify-center relative overflow-hidden border-b group-hover:opacity-90 transition-opacity">
+                    <div className="p-4 bg-muted/50">
+                      <div className="aspect-[3/4] bg-white rounded-sm shadow-md flex items-center justify-center relative overflow-hidden border group-hover:opacity-90 transition-opacity">
                         <TemplateComponent />
                         {isSelected && (
                           <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
@@ -102,7 +102,7 @@ const TemplateSelection = () => {
                           </div>
                         )}
                       </div>
-                    </CardHeader>
+                    </div>
                     <CardContent className="p-6 flex flex-col flex-grow">
                       <CardTitle className="text-lg mb-2">{template.name}</CardTitle>
                       <p className="text-muted-foreground text-sm mb-4 flex-grow">
