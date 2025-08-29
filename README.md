@@ -28,10 +28,9 @@ A modern, web-based resume builder that helps you create professional resumes wi
 
 ## 📸 Screenshots
 
-👉 Add screenshots of your app in the `screenshots/` folder and link them here.  
-
 ### Landing Page  
-![Landing Page](screenshots/landing.png)
+![Landing Page 1](screenshots/landing_1.png)  
+![Landing Page 2](screenshots/landing_2.png)
 
 ### Template Selection  
 ![Template Selection](screenshots/templates.png)
@@ -41,6 +40,7 @@ A modern, web-based resume builder that helps you create professional resumes wi
 
 ### Final Resume Preview  
 ![Final Resume Preview](screenshots/preview.png)
+
 
 ---
 
