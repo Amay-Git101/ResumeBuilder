@@ -26,20 +26,21 @@ A modern, web-based resume builder that helps you create professional resumes wi
 
 ---
 
+
 ## 📸 Screenshots
 
 ### Landing Page  
-![Landing Page 1](ResumeBuilder/screenshots/landing_1.png)  
-![Landing Page 2](ResumeBuilder/screenshots/landing_2.png)
+![Landing Page 1](Screenshots/landing_1.png)  
+![Landing Page 2](Screenshots/landing_2.png)
 
 ### Template Selection  
-![Template Selection](ResumeBuilder/screenshots/templates.png)
+![Template Selection](Screenshots/templates.png)
 
 ### Resume Form  
-![Resume Form](ResumeBuilder/screenshots/form.png)
+![Resume Form](Screenshots/form.png)
 
 ### Final Resume Preview  
-![Final Resume Preview](ResumeBuilder/screenshots/preview.png)
+![Final Resume Preview](Screenshots/preview.png)
 
 
 ---
