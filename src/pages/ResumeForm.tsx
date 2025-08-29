@@ -19,7 +19,8 @@ import {
   RefreshCw,
   FileText,
   Trash2,
-  Sparkles
+  Sparkles,
+  ClipboardList
 } from "lucide-react";
 import { PersonalInfoForm } from "@/components/forms/PersonalInfoForm";
 import { EducationForm } from "@/components/forms/EducationForm";
@@ -27,8 +28,10 @@ import { WorkExperienceForm } from "@/components/forms/WorkExperienceForm";
 import { ProjectsForm } from "@/components/forms/ProjectsForm";
 import { SkillsForm } from "@/components/forms/SkillsForm";
 import { AchievementsForm } from "@/components/forms/AchievementsForm";
+import { CareerObjectiveForm } from "@/components/forms/CareerObjectiveForm";
 import { toast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 const sections = [
   {
@@ -37,6 +40,13 @@ const sections = [
     icon: <User className="h-5 w-5" />,
     required: true,
     component: PersonalInfoForm
+  },
+  {
+    id: 'objective',
+    title: 'Career Objective',
+    icon: <ClipboardList className="h-5 w-5" />,
+    required: false,
+    component: CareerObjectiveForm
   },
   {
     id: 'education',
@@ -200,12 +210,7 @@ const ResumeForm = () => {
               <span className="text-sm font-medium">Progress</span>
               <span className="text-sm text-muted-foreground">{completionPercentage}%</span>
             </div>
-            <div className="w-full bg-muted rounded-full h-2">
-              <div
-                className="bg-gradient-primary h-2 rounded-full transition-all duration-500"
-                style={{ width: `${completionPercentage}%` }}
-              />
-            </div>
+            <Progress value={completionPercentage} className="h-2" />
           </div>
 
           {/* Form Sections */}

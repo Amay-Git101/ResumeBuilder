@@ -1,5 +1,7 @@
 export interface PersonalInfo {
   fullName: string;
+  jobTitle: string;
+  careerObjective: string;
   email: string;
   phone: string;
   location: string;

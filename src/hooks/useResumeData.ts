@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { ResumeData } from '@/types/resume';
 
 const STORAGE_KEY = 'resume-builder-data';
@@ -6,6 +6,8 @@ const STORAGE_KEY = 'resume-builder-data';
 export const sampleResumeData: ResumeData = {
   personalInfo: {
     fullName: 'Mark Griffin',
+    jobTitle: 'Human Resource Intern',
+    careerObjective: 'BBA undergraduate seeking a Human Resource internship, where I can bring my knowledge in the best DEI practices and ability to lead teams. Eager to contribute to strategic talent development efforts.',
     email: 'markgriff91@email.com',
     phone: '(123) 456-7890',
     location: 'Chicago, IL',
@@ -97,6 +99,8 @@ export const sampleResumeData: ResumeData = {
 const emptyResumeData: ResumeData = {
     personalInfo: {
       fullName: '',
+      jobTitle: '',
+      careerObjective: '',
       email: '',
       phone: '',
       location: '',

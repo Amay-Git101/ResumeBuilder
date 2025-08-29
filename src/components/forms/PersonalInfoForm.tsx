@@ -29,6 +29,19 @@ export const PersonalInfoForm = () => {
       </div>
 
       <div className="space-y-2">
+        <Label htmlFor="jobTitle" className="text-sm font-medium">
+          Job Title
+        </Label>
+        <Input
+          id="jobTitle"
+          placeholder="e.g., Software Engineer"
+          value={personalInfo.jobTitle}
+          onChange={(e) => handleChange('jobTitle', e.target.value)}
+          className="h-10"
+        />
+      </div>
+
+      <div className="space-y-2">
         <Label htmlFor="email" className="text-sm font-medium">
           Email Address <span className="text-destructive">*</span>
         </Label>
@@ -93,8 +106,8 @@ export const PersonalInfoForm = () => {
           className="h-10"
         />
       </div>
-
-      <div className="space-y-2 md:col-span-2">
+      
+      <div className="space-y-2">
         <Label htmlFor="website" className="text-sm font-medium">
           Personal Website
         </Label>

@@ -1,12 +1,19 @@
 import { ResumeData } from "@/types/resume";
-import { Mail, Phone, MapPin, Linkedin } from 'lucide-react';
 
 interface Props {
   data: ResumeData;
 }
 
+const ensureUrlProtocol = (url: string) => {
+  if (!url) return "";
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  return `https://${url}`;
+};
+
 export const CreativeTemplate: React.FC<Props> = ({ data }) => {
-  const { personalInfo, education, workExperience, skills, achievements } = data;
+  const { personalInfo, education, workExperience, skills, projects, achievements } = data;
 
   const SidebarSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <section>
@@ -20,31 +27,36 @@ export const CreativeTemplate: React.FC<Props> = ({ data }) => {
       {/* Sidebar */}
       <aside className="w-1/3 bg-yellow-400 p-8 text-gray-900 flex flex-col">
         <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold">{personalInfo.fullName}</h1>
-            <p className="text-md">HR Intern</p>
+            <h1 className="text-3xl font-bold">{personalInfo?.fullName ?? "Your Name"}</h1>
+            {personalInfo?.jobTitle && <p className="text-md">{personalInfo.jobTitle}</p>}
         </div>
         <div className="space-y-6 text-sm">
             <SidebarSection title="Contact">
-                {personalInfo.phone && <p className="break-all">{personalInfo.phone}</p>}
-                {personalInfo.email && <p className="break-all">{personalInfo.email}</p>}
-                {personalInfo.location && <p>{personalInfo.location}</p>}
-                {personalInfo.linkedin && <p className="break-all">{personalInfo.linkedin}</p>}
+                {personalInfo?.phone && <a href={`tel:${personalInfo.phone}`} className="break-all hover:underline">{personalInfo.phone}</a>}
+                {personalInfo?.email && <a href={`mailto:${personalInfo.email}`} className="break-all hover:underline">{personalInfo.email}</a>}
+                {personalInfo?.location && <p>{personalInfo.location}</p>}
+                {personalInfo?.linkedin && <a href={ensureUrlProtocol(personalInfo.linkedin)} target="_blank" rel="noopener noreferrer" className="break-all hover:underline">{personalInfo.linkedin}</a>}
             </SidebarSection>
-            {education.length > 0 && (
+            {education?.length > 0 && (
                 <SidebarSection title="Education">
                     {education.map(edu => (
                         <div key={edu.id} className="mb-2">
                             <h3 className="font-bold">{edu.degree}</h3>
                             <p>{edu.institution}</p>
                             <p className="text-xs">{edu.startDate} - {edu.endDate}</p>
+                            {edu.description && <p className="text-xs italic mt-1">{edu.description}</p>}
                         </div>
                     ))}
                 </SidebarSection>
             )}
-            {skills.filter(s => s.category === 'soft').length > 0 && (
+            {skills?.filter(s => s.category === 'soft').length > 0 && (
                 <SidebarSection title="Soft Skills">
                      <ul className="list-disc list-inside">
-                        {skills.filter(s => s.category === 'soft').map(skill => <li key={skill.id}>{skill.name}</li>)}
+                        {skills.filter(s => s.category === 'soft').map(skill => (
+                          <li key={skill.id}>
+                            {skill.name}{skill.level && ` (${skill.level.charAt(0).toUpperCase() + skill.level.slice(1)})`}
+                          </li>
+                        ))}
                     </ul>
                 </SidebarSection>
             )}
@@ -53,14 +65,30 @@ export const CreativeTemplate: React.FC<Props> = ({ data }) => {
 
       {/* Main Content */}
       <main className="w-2/3 p-8 flex-grow flex flex-col">
-        <section className="mb-6">
-          <h2 className="text-2xl font-bold uppercase text-gray-700 border-b-2 border-yellow-400 pb-2 mb-4">Career Objective</h2>
-          <p className="text-sm text-gray-600">
-            Seeking a Human Resource internship where I can bring my knowledge in the best DEI practices and ability to lead teams. Eager to contribute to strategic talent development efforts.
-          </p>
-        </section>
+        {personalInfo?.careerObjective && (
+          <section className="mb-6">
+            <h2 className="text-2xl font-bold uppercase text-gray-700 border-b-2 border-yellow-400 pb-2 mb-4">Career Objective</h2>
+            <p className="text-sm text-gray-600">
+              {personalInfo.careerObjective}
+            </p>
+          </section>
+        )}
 
-        {workExperience.length > 0 && (
+        {projects?.length > 0 && (
+            <section className="mb-6">
+                <h2 className="text-2xl font-bold uppercase text-gray-700 border-b-2 border-yellow-400 pb-2 mb-4">Projects</h2>
+                <div className="space-y-4">
+                    {projects.map(proj => (
+                        <div key={proj.id}>
+                            <h3 className="text-lg font-bold">{proj.title}</h3>
+                            <p className="text-sm text-gray-600">{proj.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        )}
+
+        {workExperience?.length > 0 && (
           <section className="mb-6">
             <h2 className="text-2xl font-bold uppercase text-gray-700 border-b-2 border-yellow-400 pb-2 mb-4">Work Experience</h2>
             <div className="space-y-4">
@@ -79,12 +107,30 @@ export const CreativeTemplate: React.FC<Props> = ({ data }) => {
             </div>
           </section>
         )}
-         {skills.filter(s => s.category !== 'soft').length > 0 && (
+
+        {achievements?.length > 0 && (
+            <section className="mb-6">
+                <h2 className="text-2xl font-bold uppercase text-gray-700 border-b-2 border-yellow-400 pb-2 mb-4">Achievements</h2>
+                <div className="space-y-2">
+                    {achievements.map(ach => (
+                        <div key={ach.id}>
+                            <h3 className="text-lg font-bold">{ach.title}</h3>
+                            <p className="text-sm text-gray-600">{ach.issuer} ({ach.date})</p>
+                            {ach.description && <p className="text-xs text-gray-600 mt-1">{ach.description}</p>}
+                        </div>
+                    ))}
+                </div>
+            </section>
+        )}
+
+         {skills?.filter(s => s.category !== 'soft').length > 0 && (
             <section className="flex-grow">
                 <h2 className="text-2xl font-bold uppercase text-gray-700 border-b-2 border-yellow-400 pb-2 mb-4">Professional Skills</h2>
                 <div className="flex flex-wrap gap-2">
                     {skills.filter(s => s.category !== 'soft').map(skill => (
-                        <span key={skill.id} className="bg-gray-200 text-gray-800 px-3 py-1 text-sm rounded-full">{skill.name}</span>
+                        <span key={skill.id} className="bg-gray-200 text-gray-800 px-3 py-1 text-sm rounded-full">
+                          {skill.name}{skill.level && ` (${skill.level.charAt(0).toUpperCase() + skill.level.slice(1)})`}
+                        </span>
                     ))}
                 </div>
             </section>
